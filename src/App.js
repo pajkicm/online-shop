@@ -10,13 +10,13 @@ function App() {
   const [cart, setCart] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Load cart from localStorage when the app starts
+ 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
     setCart(savedCart);
   }, []);
 
-  // Save cart to localStorage whenever it changes
+ 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
@@ -30,7 +30,7 @@ function App() {
       const index = prevCart.findIndex((item) => item.id === productId);
       if (index !== -1) {
         const updatedCart = [...prevCart];
-        updatedCart.splice(index, 1); // Remove one instance
+        updatedCart.splice(index, 1); 
         return updatedCart;
       }
       return prevCart;

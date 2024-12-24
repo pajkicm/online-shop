@@ -9,7 +9,7 @@ function ProductList({ addToCart, searchQuery }) {
   useEffect(() => {
     const items = productsData?.products?.data?.items || [];
     setProducts(items);
-    setFilteredProducts(items); // Initially show all products
+    setFilteredProducts(items);
   }, []);
 
   useEffect(() => {
@@ -27,10 +27,13 @@ function ProductList({ addToCart, searchQuery }) {
         filteredProducts.map((product) => (
           <div key={product.id} className="product-card">
             <Link to={`/product/${product.id}`}>
-              <img src={product.images?.[0] || 'https://via.placeholder.com/640x360?text=No+Image'} alt={product.name} />
+              <img
+                src={product.images?.[0] || 'https://via.placeholder.com/640x360?text=No+Image'}
+                alt={product.name}
+              />
               <h2>{product.name}</h2>
             </Link>
-            <p>Price: ${product.price}</p>
+            <p className="price">${product.price}</p>
             <button onClick={() => addToCart(product)}>Add to Cart</button>
           </div>
         ))
