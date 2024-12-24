@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import productsData from '../data/products.json';
 
-function ProductList({ addToCart, searchQuery }) {
+function ProductList({ addToCart, searchQuery, selectedCategory }) {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
@@ -13,13 +13,16 @@ function ProductList({ addToCart, searchQuery }) {
   }, []);
 
   useEffect(() => {
-    const filtered = products.filter(
-      (product) =>
+    const filtered = products.filter((product) => {
+      const matchesCategory =
+        selectedCategory === 'all' || product.category === selectedCategory;
+      const matchesSearch =
         product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+        product.description.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
     setFilteredProducts(filtered);
-  }, [searchQuery, products]);
+  }, [searchQuery, selectedCategory, products]);
 
   return (
     <div className="product-list">

@@ -9,14 +9,13 @@ import './App.css';
 function App() {
   const [cart, setCart] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
- 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
     setCart(savedCart);
   }, []);
 
- 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
@@ -25,31 +24,34 @@ function App() {
     setCart((prevCart) => [...prevCart, product]);
   };
 
-  const removeFromCart = (productId) => {
-    setCart((prevCart) => {
-      const index = prevCart.findIndex((item) => item.id === productId);
-      if (index !== -1) {
-        const updatedCart = [...prevCart];
-        updatedCart.splice(index, 1); 
-        return updatedCart;
-      }
-      return prevCart;
-    });
-  };
-
   const handleSearch = (query) => {
     setSearchQuery(query);
+  };
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
   };
 
   return (
     <Router>
       <div className="App">
-        <Header cartCount={cart.length} handleSearch={handleSearch} />
+        <Header
+          cartCount={cart.length}
+          handleSearch={handleSearch}
+          handleCategoryChange={handleCategoryChange}
+          selectedCategory={selectedCategory}
+        />
         <main>
           <Routes>
             <Route
               path="/"
-              element={<ProductList addToCart={addToCart} searchQuery={searchQuery} />}
+              element={
+                <ProductList
+                  addToCart={addToCart}
+                  searchQuery={searchQuery}
+                  selectedCategory={selectedCategory}
+                />
+              }
             />
             <Route
               path="/product/:id"
@@ -57,7 +59,7 @@ function App() {
             />
             <Route
               path="/checkout"
-              element={<Checkout cart={cart} removeFromCart={removeFromCart} />}
+              element={<Checkout cart={cart} />}
             />
           </Routes>
         </main>
