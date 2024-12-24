@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import productsData from '../data/products.json';
 
-function ProductDetails({ addToCart, toggleCheckout }) {
+function ProductDetails({ addToCart }) {
   const { id } = useParams();
   const product = productsData?.products?.data?.items.find((item) => item.id === id);
 
@@ -21,7 +21,6 @@ function ProductDetails({ addToCart, toggleCheckout }) {
       <div dangerouslySetInnerHTML={{ __html: product.features }} />
       <p>Price: ${product.price}</p>
       <button onClick={() => addToCart(product)}>Add to Cart</button>
-      <button onClick={toggleCheckout}>Go to Cart</button>
     </div>
   );
 }

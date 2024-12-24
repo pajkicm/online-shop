@@ -8,6 +8,7 @@ import './App.css';
 
 function App() {
   const [cart, setCart] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Load cart from localStorage when the app starts
   useEffect(() => {
@@ -29,22 +30,35 @@ function App() {
       const index = prevCart.findIndex((item) => item.id === productId);
       if (index !== -1) {
         const updatedCart = [...prevCart];
-        updatedCart.splice(index, 1); // Remove the first occurrence
+        updatedCart.splice(index, 1); // Remove one instance
         return updatedCart;
       }
-      return prevCart; // Return unchanged if no match
+      return prevCart;
     });
+  };
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
   };
 
   return (
     <Router>
       <div className="App">
-        <Header cartCount={cart.length} />
+        <Header cartCount={cart.length} handleSearch={handleSearch} />
         <main>
           <Routes>
-            <Route path="/" element={<ProductList addToCart={addToCart} />} />
-            <Route path="/product/:id" element={<ProductDetails addToCart={addToCart} />} />
-            <Route path="/checkout" element={<Checkout cart={cart} removeFromCart={removeFromCart} />} />
+            <Route
+              path="/"
+              element={<ProductList addToCart={addToCart} searchQuery={searchQuery} />}
+            />
+            <Route
+              path="/product/:id"
+              element={<ProductDetails addToCart={addToCart} />}
+            />
+            <Route
+              path="/checkout"
+              element={<Checkout cart={cart} removeFromCart={removeFromCart} />}
+            />
           </Routes>
         </main>
       </div>

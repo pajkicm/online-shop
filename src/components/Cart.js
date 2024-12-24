@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 function Cart() {
   const [cart, setCart] = useState([]);
 
-  const addToCart = (product) => {
-    setCart([...cart, product]);
-  };
+  // const addToCart = (product) => {
+  //   setCart([...cart, product]);
+  // };
 
   return (
     <div className="cart">
