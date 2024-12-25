@@ -12,8 +12,7 @@ function Checkout({ cart, removeFromCart }) {
         <ul>
           {cart.map((item, index) => (
             <li key={index}>
-              <strong>{item.name}</strong>
-              <span>${item.price}</span>
+              <strong>{item.name}</strong> - ${item.price}
               <button onClick={() => removeFromCart(item.id)}>Remove</button>
             </li>
           ))}

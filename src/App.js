@@ -24,6 +24,18 @@ function App() {
     setCart((prevCart) => [...prevCart, product]);
   };
 
+  const removeFromCart = (productId) => {
+    setCart((prevCart) => {
+      const index = prevCart.findIndex((item) => item.id === productId);
+      if (index !== -1) {
+        const updatedCart = [...prevCart];
+        updatedCart.splice(index, 1);
+        return updatedCart;
+      }
+      return prevCart;
+    });
+  };
+
   const handleSearch = (query) => {
     setSearchQuery(query);
   };
@@ -59,7 +71,7 @@ function App() {
             />
             <Route
               path="/checkout"
-              element={<Checkout cart={cart} />}
+              element={<Checkout cart={cart} removeFromCart={removeFromCart} />}
             />
           </Routes>
         </main>

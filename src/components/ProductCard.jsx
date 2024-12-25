@@ -1,10 +1,8 @@
 import React from 'react';
 
 function ProductCard({ product, addToCart }) {
-  // Default placeholder image
   const defaultImage = 'https://via.placeholder.com/640x360?text=No+Image';
 
-  // Use the first image or fallback to default
   const imageUrl = product.images && product.images.length > 0 ? product.images[0] : defaultImage;
 
   return (
